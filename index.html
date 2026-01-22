@@ -2,28 +2,282 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="description" content="SCOUT: Language-based Trial and Error Fails in the Era of Experience">
+  <meta name="keywords" content="LLM, RL, Agent, Reinforcement Learning, ICML">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SCOUT: Sub-Scale Collaboration On Unseen Task</title>
+
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   <style>
-    body { font-family: 'Noto Sans', sans-serif; }
-    .publication-title { font-family: 'Google Sans', sans-serif; font-weight: bold; font-size: 2.5rem; }
-    .hero-body { padding: 3rem 1.5rem; }
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: #ffffff;
+    }
+    
+    /* 标题样式 */
+    .publication-title {
+      font-family: 'Google Sans', sans-serif;
+      font-weight: 700;
+      font-size: 2.6rem;
+      line-height: 1.2;
+      background: -webkit-linear-gradient(#333, #555);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 作者样式 */
+    .publication-authors {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 1.25rem;
+      margin-top: 20px;
+    }
+    
+    .publication-venue {
+      font-size: 1.1rem;
+      color: #555;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* 按钮样式 */
+    .link-block a {
+      text-decoration: none;
+      color: inherit; 
+    }
+    
+    .button.is-dark {
+      background-color: #363636;
+      border-color: transparent;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+    
+    .button.is-dark:hover {
+      background-color: #555;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    /* 摘要框 */
+    .abstract-box {
+      background-color: #f5f5f5;
+      padding: 30px;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+    }
+
+    /* 图片容器 */
+    .hero.teaser {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .img-fluid {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border: 1px solid #eee;
+    }
+    
+    .caption {
+      font-size: 1rem;
+      color: #666;
+      margin-top: 15px;
+      font-style: italic;
+    }
+
+    /* 章节标题 */
+    .section-title {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+
+    /* 列表样式 */
+    .method-list li {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    .method-list strong {
+      color: #209cee; /* Bulma Blue */
+    }
+
+    /*页脚*/
+    .footer {
+      background-color: #fafafa;
+      padding: 3rem 1.5rem 3rem;
+      margin-top: 3rem;
+    }
+
   </style>
 </head>
 <body>
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <h1 class="title is-1 publication-title">
-          SCOUT: Language-based Trial and Error Fails<br>in the Era of Experience
-        </h1>
-        <div class="is-size-5" style="margin-top: 20px;">
-          Under Review at ICML 2026
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          
+          <h1 class="title is-1 publication-title">
+            SCOUT: Language-based Trial and Error Fails<br>in the Era of Experience
+          </h1>
+          
+          <div class="publication-authors">
+            <span class="author-block">
+              <a href="#">Anonymous Authors</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="publication-venue">
+            Under Review at ICML 2026
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/Scout-cs" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body has-text-centered">
+      <img src="./assets/scout_framework.png" class="img-fluid" alt="SCOUT Framework Overview">
+      <h2 class="subtitle caption">
+        Figure 1: <strong>The SCOUT Framework.</strong> By decoupling exploration (via lightweight Scouts) from exploitation (via LLMs), SCOUT efficiently internalizes environmental dynamics.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="section-title">Abstract</h2>
+        <div class="content has-text-justified abstract-box">
+          <p>
+            While Large Language Models (LLMs) excel in language-based agentic tasks, their applicability to unseen, non-linguistic environments (e.g., symbolic or spatial tasks) remains limited. We demonstrate the primary bottleneck is the prohibitive cost of exploration: mastering these tasks requires extensive trial-and-error, which is computationally unsustainable for parameter-heavy LLMs.
+          </p>
+          <p>
+            To address this, we propose <strong>SCOUT (Sub-Scale Collaboration On Unseen Task)</strong>, a novel framework that decouples exploration from exploitation. We employ lightweight "scouts" (e.g., small MLPs) to probe environmental dynamics at a speed and scale far exceeding LLMs. The collected trajectories are utilized to bootstrap the LLM via Supervised Fine-Tuning (SFT), followed by multi-turn Reinforcement Learning (RL).
+          </p>
+          <p>
+            Empirically, SCOUT enables a Qwen2.5-3B-Instruct model to achieve an average score of <strong>0.86</strong>, significantly outperforming proprietary models, including Gemini-2.5-Pro (0.60), while saving about <strong>60%</strong> GPU hours.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="section-title has-text-centered">Methodology</h2>
+        <div class="content has-text-justified">
+          <p>
+            Our framework addresses the efficiency bottleneck by splitting the learning process into three distinct stages:
+          </p>
+          <ul class="method-list">
+            <li>
+              <i class="fas fa-binoculars" style="margin-right: 8px; color: #555;"></i>
+              <strong>1. Exploration Stage:</strong> Lightweight scouts (MLP/CNN, ~10<sup>-5</sup>B params) interact with the environment using efficient RL (DQN/PPO) to map transition dynamics and collect expert trajectories.
+            </li>
+            <li>
+              <i class="fas fa-file-alt" style="margin-right: 8px; color: #555;"></i>
+              <strong>2. Distillation Stage:</strong> We employ a deterministic <em>Textualizer</em> to translate symbolic trajectories into language-based dialogue. These are used to "warm up" the LLM via Supervised Fine-Tuning (SFT), grounding the physics of the task.
+            </li>
+            <li>
+              <i class="fas fa-chart-line" style="margin-right: 8px; color: #555;"></i>
+              <strong>3. Evolving Stage:</strong> The warmed-up LLM undergoes multi-turn PPO training. This activates its latent world knowledge and refines its reasoning capabilities, allowing it to surpass the scout's performance.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="section-title has-text-centered">Experimental Results</h2>
+    
+    <div class="content has-text-centered">
+      <img src="./assets/results_table.png" class="img-fluid" alt="Main Results Table">
+      <p class="caption has-text-justified" style="margin-top: 20px;">
+        <strong>Table 1: Main results on 6 unseen tasks.</strong> 
+        SCOUT (Exploration & Distillation + Evolving) significantly outperforms baselines across various model sizes (0.5B, 1.5B, 3B). 
+        Notably, the <strong>Qwen2.5-3B</strong> model with SCOUT achieves an average score of <strong>0.86</strong>, surpassing <strong>Gemini-2.5-Pro (0.60)</strong>.
+      </p>
+    </div>
+    
+    <div class="content has-text-justified" style="margin-top: 30px;">
+      <p>
+        We evaluated SCOUT on diverse environments including <strong>Rubik's Cube</strong> (Spatial), <strong>2048</strong> (Long-horizon planning), and <strong>FrozenLake</strong> (Stochastic). 
+        The results demonstrate that SCOUT effectively bridges the gap between linguistic priors and physical dynamics, achieving state-of-the-art performance with significantly reduced computational costs.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-4">BibTeX</h2>
+    <pre><code>@article{scout2026,
+  title={Language-based Trial and Error Fails in the Era of Experience},
+  author={Anonymous Authors},
+  journal={Under Review at ICML},
+  year={2026}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This website template is borrowed from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
