@@ -231,15 +231,9 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="#" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="ai ai-arxiv"></i></span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://github.com/Scout-cs" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://github.com/Harry-mic/SCOUT" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fab fa-github"></i></span>
-                  <span>Code</span>
+                  <span></span>
                 </a>
               </span>
             </div>
@@ -269,13 +263,7 @@
         <h2 class="section-title">Abstract</h2>
         <div class="content has-text-justified abstract-box">
           <p>
-            While Large Language Models (LLMs) excel in language-based agentic tasks, their applicability to unseen, non-linguistic environments (e.g., symbolic or spatial tasks) remains limited. We demonstrate the primary bottleneck is the <strong>prohibitive cost of exploration</strong>: mastering these tasks requires extensive trial-and-error, which is computationally unsustainable for parameter-heavy LLMs.
-          </p>
-          <p>
-            To address this, we propose <strong>SCOUT (Sub-Scale Collaboration On Unseen Task)</strong>, a novel framework that decouples exploration from exploitation. We employ lightweight "scouts" (e.g., small MLPs ~10<sup>-5</sup>B params) to probe environmental dynamics at a speed and scale far exceeding LLMs. The collected trajectories are utilized to bootstrap the LLM via Supervised Fine-Tuning (SFT), followed by multi-turn Reinforcement Learning (RL).
-          </p>
-          <p>
-            Empirically, SCOUT enables a <strong>Qwen2.5-3B-Instruct</strong> model to achieve an average score of <strong>0.86</strong> on unseen tasks, significantly outperforming proprietary models, including Gemini-2.5-Pro (0.60), while saving about <strong>60% GPU hours</strong>.
+            While Large Language Models (LLMs) excel in language-based agentic tasks, their applicability to unseen, nonlinguistic environments (e.g., symbolic or spatial tasks) remains limited. Previous work attributes this performance gap to the mismatch between the pretraining distribution and testing distribution. In this work, we demonstrate the primary bottleneck is the prohibitive cost of exploration: mastering these tasks requires extensive trial-and-error, which is computationally unsustainable for parameter-heavy LLMs operating in a high dimensional semantic space. To address this, we propose SCOUT (Sub-Scale Collaboration On Unseen Task), a novel framework that decouples exploration from exploitation. We employ lightweight "scouts" (e.g., small MLPs) to probe environmental dynamics at a speed and scale far exceeding LLMs. The collected trajectories are utilized to bootstrap the LLM via Supervised Fine-Tuning (SFT), followed by multi-turn Reinforcement Learning (RL) to activate its latent world knowledge. Empirically, SCOUT enables a Qwen2.5-3B-Instruct model to achieve an average score of 0.86, significantly outperforming proprietary models, including Gemini-2.5-Pro (0.60), while saving about 60% GPU hours consumption.
           </p>
         </div>
       </div>
@@ -297,7 +285,13 @@
                 <div class="box-highlight">
                     <h4 class="title is-5"><i class="fas fa-exclamation-triangle" style="color: #e67e22;"></i> The Problem</h4>
                     <p>
-                        <strong>Mismatch of Spaces:</strong> LLMs explore a vast vocabulary space (>30k tokens), whereas many reasoning tasks require discrete, low-dimensional actions. Forcing an LLM to perform "trial-and-error" from scratch is computationally wasteful.
+                        <strong>Endless complexity:</strong> It is hard to fully simplify and cover all tasks during pretraining as the real world is unbounded, involving "endless complexity".
+                    </p>
+                    <p>
+                        <strong>Mismatch of Spaces:</strong> LLMs explore a vast language space, whereas many unseen tasks require discrete, low-dimensional actions. Forcing an LLM to perform "trial-and-error" from scratch is computationally wasteful.
+                    </p>
+                    <p>
+                        <strong>The Bitter Lesson:</strong> Depending solely on language priors limits scalability. Leveraging computation (searching and learning) is far more effective than relying on predefined knowledge in a long run. 
                     </p>
                 </div>
             </div>
@@ -305,7 +299,7 @@
                 <div class="box-highlight" style="border-left-color: #27ae60; background-color: #e9f7ef;">
                     <h4 class="title is-5"><i class="fas fa-lightbulb" style="color: #27ae60;"></i> The SCOUT Solution</h4>
                     <p>
-                        <strong>Sub-Scale Collaboration:</strong> Delegate the "dirty work" of initial exploration to lightweight Scouts. They are cheap, fast, and can run on CPUs. The LLM only enters when it can learn from high-quality "Experience" rather than random trials.
+                        <strong>Sub-Scale Collaboration:</strong> Delegate the "dirty work" of initial exploration to lightweight Scouts. They are cheap, fast, and can run on CPUs. The LLM only enters when it can learn from high-quality "Experience" rather than the heavy trial-and-error.
                     </p>
                 </div>
             </div>
@@ -329,19 +323,19 @@
         <div class="column is-4">
             <div class="stat-box">
                 <div class="stat-number">60%</div>
-                <div class="stat-label">Reduction in GPU Hours</div>
+                <div class="stat-label">Reduction in GPU Hours<br>(on Rubiks' Cube Rotation3)</div>
             </div>
         </div>
         <div class="column is-4">
             <div class="stat-box">
                 <div class="stat-number">~0</div>
-                <div class="stat-label">GPU Cost for Exploration<br>(Runs on CPU)</div>
+                <div class="stat-label">GPU Cost for Exploration<br>(Scouts mainly run on CPU)</div>
             </div>
         </div>
         <div class="column is-4">
             <div class="stat-box">
                 <div class="stat-number">0.86</div>
-                <div class="stat-label">Avg. Score (Qwen2.5-3B)<br>vs 0.60 (Gemini-Pro)</div>
+                <div class="stat-label">Avg. Score (Qwen2.5-3B-It)<br>vs 0.60 (Gemini-2.5-Pro)</div>
             </div>
         </div>
     </div>
@@ -349,7 +343,7 @@
     <div class="content has-text-centered">
         <img src="./assets/results_table.png" class="img-fluid" alt="Training Cost Comparison" style="max-width: 80%;">
         <p class="caption">
-            <strong>Table 1 (Condensed):</strong> Comparative results. SCOUT achieves State-of-the-Art performance with significantly lower training costs compared to direct RL (PPO).
+            <strong>Table 1:</strong> Main results on 6 unseen tasks. The 2048 score is normalized (Max-N)/2048 to align with the [0,1] scale of other tasks.
         </p>
     </div>
   </div>
@@ -365,7 +359,7 @@
       
       <h3 class="subtitle-section">Case Study: Sudoku</h3>
       <p>
-          In Sudoku, the SFT model (Distillation) often fails to generalize. However, after RL, the model explicitly identifies missing numbers in rows and columns.
+          The SFT model after the Distillation Stage leaves its thought blank. However, after RL, the model explicitly identifies missing numbers in rows and columns in its thought.
       </p>
 
       <div class="columns">
@@ -376,7 +370,14 @@
                   <em>[Grid State: Row 3 has [4, ., 1, .] ...]</em>
               </div>
               <div class="chat-bubble assistant-msg">
-                  <strong>Assistant (SCOUT - Evolved):</strong>
+                  <strong>Assistant (SCOUT - After Distillation Stage):</strong>
+                  <br>
+                  <span class="thought-text">&lt;think&gt; &lt;/think&gt;</span>
+                  <br>
+                  &lt;answer&gt; place 2 at row 3 col 3 &lt;/answer&gt;
+              </div>
+              <div class="chat-bubble assistant-msg">
+                  <strong>Assistant (SCOUT - After Evolving Stage):</strong>
                   <br>
                   <span class="thought-text">&lt;think&gt; Checking Row 3. It currently has 1 and 4. The missing numbers are 2 and 3. Looking at Column 3, there is already a 3. Therefore, Row 3 Col 3 must be 2. &lt;/think&gt;</span>
                   <br>
